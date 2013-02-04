@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="afnic_deploy" default="default">
+
+	<property environment="env" />
+	<property environment="schema" />
+	<property file="./conf/${schema.name}.${env.AFNIC_MODE}.properties" />
+	
+	<property name="lib.dir" value = "./lib/" />
+	<property name="scripts.dir" value = "./deploy/${schema.name}/" />
+	<property name="working.dir" value = "./deploy/${schema.name}/${env.AFNIC_MODE}/" />
+	
+    <property name="db.driver" value="org.hsqldb.jdbcDriver" />
+    <property name="db.url" value="jdbc:hsqldb:file:db/testdb;shutdown=true" />
+	<property name="sqlplus.binary" value="sqlplus64" />
+	
+	<property name="lib.tns_admin.value" value="/etc/oracle"/>
+	<property name="lib.ld_library_path.value" value="/usr/lib/oracle/11.2/client64/lib"/>
+	
+
+	<!-- script locate in next_bdd/deploy/
+		library locate in next-bdd/lib/
+	-->
+    <path id="hsql.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="hsqldb*.jar"/>
+        </fileset>
+    </path>
+
+	<path id="ora.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="ojdbc*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="dbdeploy.classpath">
+        <!-- include the dbdeploy-ant jar -->
+        <fileset dir="${lib.dir}">
+            <include name="dbdeploy-ant-*.jar"/>
+        </fileset>
+        <!-- the dbdeploy task also needs the database driver jar on the classpath -->
+        <path refid="hsql.classpath" />
+		<path refid="ora.classpath" />
+    </path>
+
+    <taskdef name="dbdeploy" classname="com.dbdeploy.AntTarget" classpathref="dbdeploy.classpath"/>
+
+	<target name="info">
+		<echo>Target Schema: ${schema.name}</echo>
+        <echo>AFNIC Mode: ${env.AFNIC_MODE}</echo>
+		<echo>Target LastChange: ${env.last_change}</echo>
+        <echo>JDBC URL: ${jdbc.url}</echo>
+        <echo>JDBC Driver: ${jdbc.driver}}</echo>
+        <echo>JDBC User: ${jdbc.user}</echo>
+	</target>
+    <target name="default" depends="info, clean, update-database-and-apply-as-separate-step"/>
+
+    <target name="clean" depends="drop-and-create-database, create-changelog-table"/>
+
+     <target name="create-changelog-table" > <!--depends="checkNeedChangeLogTableToCreate" if="isChangelogTableNotCreated">-->
+		<sql driver="${jdbc.driver}" url="${jdbc.url}"
+             userid="${jdbc.user}" password="${jdbc.password}" classpathref="ora.classpath" onerror="continue">
+            <fileset file="${lib.dir}dbdeploy_scripts/createSchemaVersionTable.ora.sql"/>
+        </sql>
+    </target>
+
+	 <target name="checkNeedChangeLogTableToCreate">
+        <condition property="isChangelogTableNotCreated">
+            <isfailure>
+                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.user}" password="${jdbc.password}" print="true" classpathref="ora.classpath">
+					select * from changelog;
+				</sql>
+            </isfailure>
+        </condition>
+    </target>
+
+    <target name="update-database" description="generate a sql upgrade script">
+
+        <!-- if you don't specify an output file, dbdeploy will apply the changes for you
+
+        you may need to specify delimiter and delimitertype for your scripts to be split properly - these
+         work the same as in the ant sql task, see http://ant.apache.org/manual/CoreTasks/sql.html
+        -->
+        <dbdeploy driver="${jdbc.driver}" url="${jdbc.url}"
+                  userid="${jdbc.user}"
+                  password="${jdbc.password}"
+                  dir="${scripts.dir}"
+                />
+
+    </target>
+
+	<target name="checkTargetChange">
+		<condition property="last.change.toapply.defined">
+			<isset property="env.last_change" />
+		</condition>
+	</target>
+
+    <target name="update-database-and-apply-as-separate-step"  depends="update-database-with-change-and-apply-as-separate-step, update-database-without-change-and-apply-as-separate-step" />
+	
+    <target name="update-database-with-change-and-apply-as-separate-step" description="generate a sql upgrade script" depends="checkTargetChange" if="last.change.toapply.defined">
+
+		<ant antfile="getlastchange.xml" inheritAll="false">
+			<property name="schema" value="${schema}"/>
+			<property name="env" value="${env}"/>
+		</ant>
+		
+		<echo>JDBC URL: ${jdbc.url}</echo>
+        <!-- lastChangeToApply -->
+		<property file="${working.dir}lastChangeToApply.properties" />
+		
+		<!-- use dbdeploy to generate the change script -->
+        <dbdeploy driver="${jdbc.driver}" url="${jdbc.url}"
+                  userid="${jdbc.user}"
+                  password="${jdbc.password}"
+                  dir="${scripts.dir}"
+                  outputfile="${working.dir}output.sql"
+                  undoOutputfile="${working.dir}undo.sql"
+                  dbms="ora"
+				  lastChangeToApply="${lastchangetoapply}"
+                />
+		
+        <!-- now apply the changescript to the database -->
+		<exec executable="${sqlplus.binary}">
+			<env key="TNS_ADMIN" path="${lib.tns_admin.value}"/>
+			<env key="LD_LIBRARY_PATH" path="${lib.ld_library_path.value}"/>
+			<env key="http_proxy" path=""/>
+			<env key="no_proxy" path=""/>
+			<arg line="${jdbc.user}/${jdbc.password}@//${db.host}/${db.sid} @${working.dir}output.sql"/>
+		</exec>
+
+    </target>
+
+	<target name="update-database-without-change-and-apply-as-separate-step" description="generate a sql upgrade script" depends="checkTargetChange" unless="last.change.toapply.defined">
+
+        <!-- use dbdeploy to generate the change script -->
+        <dbdeploy driver="${jdbc.driver}" url="${jdbc.url}"
+                  userid="${jdbc.user}"
+                  password="${jdbc.password}"
+                  dir="${scripts.dir}"
+                  outputfile="${working.dir}output.sql"
+                  undoOutputfile="${working.dir}undo.sql"
+                  dbms="ora"
+		        />
+		
+        <!-- now apply the changescript to the database -->
+		<exec executable="${sqlplus.binary}">
+			<env key="TNS_ADMIN" path="${lib.tns_admin.value}"/>
+			<env key="LD_LIBRARY_PATH" path="${lib.ld_library_path.value}"/>
+			<env key="http_proxy" path=""/>
+			<env key="no_proxy" path=""/>
+			<arg line="${jdbc.user}/${jdbc.password}@//${db.host}/${db.sid} @${working.dir}output.sql"/>
+		</exec>
+
+    </target>
+
+	
+    <target name="dump-tables">
+        <sql driver="${jdbc.driver}" url="${jdbc.url}"
+             userid="${jdbc.user}" password="${jdbc.password}" print="true" classpathref="ora.classpath">
+            select * from changelog;
+            select * from test;
+        </sql>
+    </target>
+
+    <target name="drop-and-create-database">
+        <delete dir="${working.dir}db_deployscript"/>
+        <mkdir dir="${working.dir}db_deployscript"/>
+    </target>
+
+</project>

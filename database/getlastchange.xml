@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="afnic_deploy_getLastChange" default="default">
+
+	<property environment="env" />
+	<property environment="schema" />
+
+	<property file="./conf/${schema.name}.${env.last_change}.properties" />
+	<property name="working.dir" value = "./deploy/${schema.name}/${env.AFNIC_MODE}/" />
+	
+	<path id="ora.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="ojdbc*.jar"/>
+        </fileset>
+    </path>
+
+	<target name="info">
+		<echo>Target Schema: ${schema.name}</echo>
+        <echo>AFNIC Mode: ${env.AFNIC_MODE}</echo>
+		<echo>Target LastChange: ${env.last_change}</echo>
+        <echo>JDBC URL: ${jdbc.url}</echo>
+        <echo>JDBC Driver: ${jdbc.driver}}</echo>
+        <echo>JDBC User: ${jdbc.user}</echo>
+	</target>
+    <target name="default" depends="getLastChangeToApply"/>
+
+	<target name="getLastChangeToApply" depends="info">
+		<property file="./conf/${schema.name}.${env.last_change}.properties" />
+		<sql driver="${jdbc.driver}" url="${jdbc.url}"
+             userid="${jdbc.user}" password="${jdbc.password}" 
+			 print="true" classpathref="ora.classpath"
+			 output="${working.dir}lastChangeToApply.properties">
+            select 'lastchangetoapply=' || max(change_number) as lastchange from changelog;
+        </sql>
+	</target>
+
+</project>
