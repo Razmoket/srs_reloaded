@@ -8,7 +8,10 @@ VERSION: 0.1
 DATABASE: ORACLE 11G RELEASE 2
 */
 
+connect "ROOT-SRS"/&1@&2
 
+set serveroutput on
+exec dbms_output.put_line('#######srs-reloaded global');
 
 -- CREATE TABLES SECTION -------------------------------------------------
 

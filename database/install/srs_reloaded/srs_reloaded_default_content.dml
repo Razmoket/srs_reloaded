@@ -1,0 +1,4 @@
+connect "ROOT-SRS"/&1@&2
+
+set serveroutput on
+exec dbms_output.put_line('#######srs-reloaded default content');
