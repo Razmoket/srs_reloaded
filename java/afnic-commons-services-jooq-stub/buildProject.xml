@@ -1,0 +1,26 @@
+<project name="afnic-commons-services-jooq-stub" default="build">
+    <property file="buildProject.properties" />
+    <property file="buildProject.${env.AFNIC_MODE}.properties" />
+    <import file="${commons-librairies}\buildLibrairiesProject.xml"></import>
+   
+	<taskdef name="generate-classes" classname="org.jooq.util.GenerationTask">
+		  <classpath>
+    <fileset dir="${commons-librairies}/lib/jooq/2.5.0" includes="**/*.jar"/>
+    <fileset dir="${commons-librairies}/lib/ojdbc/14" includes="**/*.jar"/>
+  </classpath>
+</taskdef>
+
+       
+    <target name="before-compile" depends="compileSpecificsTask" >    	
+    	 <antcall target="compileSpecificsTask" />
+    	 
+        <JooqStubGenerationTask />
+    </target>
+	
+	<!-- Taches inutiles pour construire des stubs-->
+    <target name="test" depends="build" />
+    <target name="doc" depends="test" />
+
+    
+    
+</project>

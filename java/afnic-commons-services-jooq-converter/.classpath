@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/jooq/2.5.0/jooq-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/jooq/2.5.0/jooq-codegen-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/jooq/2.5.0/jooq-console-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/jooq/2.5.0/jooq-meta-2.5.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/afnic-commons-services-definition"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/afnic-commons-utils"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/afnic-commons-utils-sql"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/afnic-commons-services-jooq-stub"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

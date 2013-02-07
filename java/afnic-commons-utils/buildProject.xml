@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Les fichiers de configurations utilisés sont buildProjet.properties et buildProject.<AFNIC_MODE>.properties
+
+Les données générées sont toutes localisées dans le dossier ./build du projet.
+-->
+<project basedir="." default="build" name="afnic-commons-utils">
+    <property file="buildProject.properties" />
+    <property file="buildProject.${env.AFNIC_MODE}.properties" />
+    <import file="${commons-librairies}\buildLibrairiesProject.xml"></import>
+</project>
