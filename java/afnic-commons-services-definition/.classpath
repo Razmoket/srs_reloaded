@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/slf4j/1.6.3/jcl-over-slf4j-1.6.3.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/slf4j/1.6.3/slf4j-api-1.6.3.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/mailapi/mailapi.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/afnic-commons-utils"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/jdom/1.0/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/commons/lang/2.4/commons-lang-2.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/spring/3.0.0/org.springframework.asm-3.0.0.RC1.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/spring/3.0.0/org.springframework.beans-3.0.0.RC1.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/spring/3.0.0/org.springframework.context-3.0.0.RC1.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/spring/3.0.0/org.springframework.core-3.0.0.RC1.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/spring/3.0.0/org.springframework.expression-3.0.0.RC1.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/xmlunit/1.2/xmlunit-1.2.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/findbug/annotations.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/loremipsum/1.0/loremipsum-1.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/guava/r07/guava-r07.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/smtp/smtp.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/joda-time/1.6.2/joda-time-1.6.2.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/aspectj/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/imap/imap.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/ant/ant.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/perforce/p4.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/junit-addons/1.4/junit-addons-1.4.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/logback/1.0.0/logback-access-1.0.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/logback/1.0.0/logback-classic-1.0.0.jar"/>
+	<classpathentry kind="lib" path="/afnic-commons-librairies/lib/logback/1.0.0/logback-core-1.0.0.jar"/>
+	
+	<classpathentry kind="lib" path="/afnic-commons-librairies/conf/dev"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

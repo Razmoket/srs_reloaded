@@ -1,0 +1,27 @@
+<project basedir="./" default="build" name="test">
+
+    <property environment="env" />
+	
+	 <property name="param1" value="value1" />
+
+    <!-- Tache chargée de loader des taches ant spécidiques telles que findbug, checkstyle, ... -->
+    <target name="build">
+    	
+    	<path id="ClasspathTask.path">
+    	    <pathelement path="bin/" />
+    		<fileset dir="../afnic-commons-librairies/lib/jdom/1.0" includes="**/*.jar"/>
+    		<fileset dir="../afnic-commons-librairies/lib/commons/lang/2.4" includes="**/*.jar"/>
+    		<fileset dir="../afnic-commons-librairies/lib/guava/r07" includes="**/*.jar"/>
+    	 </path>
+
+        <taskdef classpathref="ClasspathTask.path"  name="ClasspathTask" classname="fr.afnic.commons.utils.ant.ClasspathTask" />
+                
+         <ClasspathTask/>
+           
+         <echo>fin du test</echo>
+    	<echo>param1==>${param1}</echo>
+    	<echo>param2==>${param2}</echo>
+     </target>
+     
+     
+</project>
