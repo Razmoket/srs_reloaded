@@ -1,0 +1,172 @@
+ <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ 
+    
+    <bean id="gateway-url" class="java.lang.String" >
+        <constructor-arg value="http://gateway.sandbox.nic.fr"/>
+    </bean>
+    
+
+    <bean id="soapOperationFormService" class="fr.afnic.commons.services.soap.SoapOperationFormService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-operationFormService-Fr" class="fr.afnic.commons.services.sql.SqlOperationFormService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="soapOperationFormService" />
+    </bean>    
+   
+    <bean id="soapWhoisContactService" class="fr.afnic.commons.services.soap.SoapWhoisContactService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-whoisContactService-Fr" class="fr.afnic.commons.services.sql.SqlWhoisContactService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="soapWhoisContactService" />
+    </bean>    
+    
+     <bean id="generic-qualityService-Fr" class="fr.afnic.commons.services.soap.SoapQualityService">
+        <constructor-arg ref="gateway-url" />
+     </bean> 
+    
+    <bean id="soapDomainService" class="fr.afnic.commons.services.soap.SoapDomainService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="sqlDomainService" class="fr.afnic.commons.services.sql.SqlDomainService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="soapDomainService" />
+    </bean>    
+    
+    <bean id="generic-domainService-Fr" class="fr.afnic.commons.services.jooq.JooqDomainService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="sqlDomainService" />
+    </bean>
+    
+      <bean id="soapTicketService" class="fr.afnic.commons.services.soap.SoapTicketService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-ticketService-Fr" class="fr.afnic.commons.services.sql.SqlTicketService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="soapTicketService" />
+    </bean>    
+
+    
+    <bean id="soapAuthorizationService" class="fr.afnic.commons.services.soap.SoapAuthorizationService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-authorizationService-Fr" class="fr.afnic.commons.services.sql.SqlAuthorizationService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="soapAuthorizationService" />
+    </bean>  
+    
+    
+    <bean id="soapAuthorizationRequestService" class="fr.afnic.commons.services.soap.SoapAuthorizationRequestService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-authorizationRequestService-Fr" class="fr.afnic.commons.services.sql.SqlAuthorizationRequestService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+        <constructor-arg ref="soapAuthorizationRequestService" />
+    </bean>  
+    
+    
+     <bean id="soapAuthorizationPreliminaryExamService" class="fr.afnic.commons.services.soap.SoapAuthorizationPreliminaryExamService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-authorizationPreliminaryExamService-Fr" class="fr.afnic.commons.services.sql.SqlAuthorizationPreliminaryExamService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+    </bean>  
+    
+    
+    <bean id="generic-tradeService-Fr" class="fr.afnic.commons.services.sql.SqlTradeService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+
+    
+    <bean id="generic-requestService-Fr" class="fr.afnic.commons.services.sql.SqlRequestService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+   
+    
+    <bean id="generic-statisticService-Fr" class="fr.afnic.commons.services.sql.SqlStatisticService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    <bean id="generic-dictionaryService-Fr" class="fr.afnic.commons.services.sql.SqlDictionnaryService">
+        <constructor-arg value="Nicope"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    
+    <bean id="generic-userService-Fr" class="fr.afnic.commons.services.sql.SqlUserService">
+        <constructor-arg value="Boa"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    <bean id="generic-operationService-Fr" class="fr.afnic.commons.services.sql.SqlOperationService">
+        <constructor-arg value="Boa"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    <bean id="generic-qualificationService-Fr" class="fr.afnic.commons.services.sql.SqlQualificationService">
+        <constructor-arg value="Boa"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    <bean id="generic-legalService-Fr" class="fr.afnic.commons.services.sql.SqlLegalService">
+        <constructor-arg value="Legal"/>
+        <constructor-arg value="Agtf"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    <bean id="generic-businessRuleService-Fr" class="fr.afnic.commons.services.csv.CSVBusinessRuleService">
+    </bean>
+    
+      
+    <bean id="generic-resultListService" class="fr.afnic.commons.services.sql.SqlResultListService">
+        <constructor-arg value="Boa"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    <bean id="generic-agtfService-Fr" class="fr.afnic.commons.services.jooq.JooqAgtfService">
+        <constructor-arg value="Boa"/>
+        <constructor-arg value="Fr"/>
+    </bean>
+    
+    <bean id="publicLegalStructureService" class=" fr.afnic.commons.services.soap.SoapPublicLegalStructureService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    <bean id="generic-publicLegalStructureWithCacheService" class=" fr.afnic.commons.services.soap.SoapPublicLegalStructureWithCacheService">
+    	<property name="wsDao" ref="publicLegalStructureService"/>
+    	<constructor-arg value="./cache/" />
+    	<constructor-arg value="864000000" />
+    </bean>
+    <bean id="generic-eppService" class=" fr.afnic.commons.services.soap.SoapEppService">
+        <constructor-arg ref="gateway-url" />
+     </bean>
+    
+    <bean id="generic-profileService-Fr" class="fr.afnic.commons.services.sql.MockProfileService">
+      </bean>
+        
+    <bean id="generic-faxService" class="fr.afnic.commons.services.docushare.DocushareFaxService">
+        <property name="folder" value="/home/faxged/attachement"/>
+    </bean>
+     
+    <bean id="generic-customerService" class="fr.afnic.commons.services.thrift.ThriftCustomerService"/>
+    <bean id="generic-customerContactService" class="fr.afnic.commons.services.thrift.ThriftCustomerContactService"/>
+    <bean id="generic-domainPortfolioService" class="fr.afnic.commons.services.thrift.ThriftDomainPortfolioService"/>
+    
+    <bean id="generic-accountService" class="fr.afnic.commons.services.mock.MockAccountService"/>
+  
+  
+</beans>

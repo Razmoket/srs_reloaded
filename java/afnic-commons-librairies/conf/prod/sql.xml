@@ -1,0 +1,142 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="BoaAuthenfication-Fr" class="fr.afnic.commons.beans.Authentification">
+        <property name="userName" value="BOA"/>
+        <property name="password" value="BOA"/>
+    </bean>
+    <bean id="AgtfAuthenfication-Fr" class="fr.afnic.commons.beans.Authentification">
+        <property name="userName" value="agtf"/>
+        <property name="password" value="agtf"/>
+    </bean> 
+	<bean id="LegalAuthenfication-Fr" class="fr.afnic.commons.beans.Authentification">
+    	<property name="userName" value="juridique"/>
+     	<property name="password" value="juridique"/>
+	</bean>
+     <bean id="gericoAuthenfication-Fr" class="fr.afnic.commons.beans.Authentification">
+        <property name="userName" value="GERICO"/>
+        <property name="password" value="GERICO"/>
+    </bean>
+     <bean id="gericoSandboxAuthenfication-Fr" class="fr.afnic.commons.beans.Authentification">
+        <property name="userName" value="GERICO"/>
+        <property name="password" value="GERICO"/>
+    </bean>
+     <bean id="NicopeAuthenfication-Fr" class="fr.afnic.commons.beans.Authentification">
+        <property name="userName" value="nicope"/>
+        <property name="password" value="nicfrance"/>
+    </bean>
+    
+    
+       
+       
+     <bean id="BoaConfiguration-Fr" class="fr.afnic.utils.sql.pool.PoolSqlConnectionConfiguration">
+         <property name="url" >
+            <value>
+            jdbc:oracle:thin:@(DESCRIPTION =
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic1.nic.fr)(PORT = 1521))
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic2.nic.fr)(PORT = 1521))
+               (CONNECT_DATA =
+                 (SERVER = DEDICATED)
+                 (SERVICE_NAME = NICPROD)
+               )
+             )          
+            </value>
+         </property>
+         <property name="poolSize" value="100"/>
+         <property name="maxUsePerConnection" value="100"/>
+         <property name="maxConnectionUseTime" value="60000"/>
+         <property name="timeout" value="5000"/>
+     </bean>
+     <bean id="AgtfConfiguration-Fr" class="fr.afnic.utils.sql.pool.PoolSqlConnectionConfiguration">
+         <property name="url" >
+            <value>
+            jdbc:oracle:thin:@(DESCRIPTION =
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic1.nic.fr)(PORT = 1521))
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic2.nic.fr)(PORT = 1521))
+               (CONNECT_DATA =
+                 (SERVER = DEDICATED)
+                 (SERVICE_NAME = NICPROD)
+               )
+             )            
+            </value>
+         </property>
+         <property name="poolSize" value="100"/>
+         <property name="maxUsePerConnection" value="100"/>
+         <property name="maxConnectionUseTime" value="60000"/>
+         <property name="timeout" value="5000"/>
+     </bean>
+     <bean id="LegalConfiguration-Fr" class="fr.afnic.utils.sql.pool.PoolSqlConnectionConfiguration">
+         <property name="url" >
+            <value>
+            jdbc:oracle:thin:@(DESCRIPTION =
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic1.nic.fr)(PORT = 1521))
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic2.nic.fr)(PORT = 1521))
+               (CONNECT_DATA =
+                 (SERVER = DEDICATED)
+                 (SERVICE_NAME = NICPROD)
+               )
+             )           
+            </value>
+         </property>
+         <property name="poolSize" value="100"/>
+         <property name="maxUsePerConnection" value="100"/>
+         <property name="maxConnectionUseTime" value="60000"/>
+         <property name="timeout" value="5000"/>
+     </bean>
+     <bean id="GericoConfiguration-Fr" class="fr.afnic.utils.sql.pool.PoolSqlConnectionConfiguration">
+         <property name="url" >
+            <value>
+            jdbc:oracle:thin:@(DESCRIPTION =
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic1.nic.fr)(PORT = 1521))
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic2.nic.fr)(PORT = 1521))
+               (CONNECT_DATA =
+                 (SERVER = DEDICATED)
+                 (SERVICE_NAME = NICPROD)
+               )
+             )           
+            </value>
+         </property>
+         <property name="poolSize" value="100"/>
+         <property name="maxUsePerConnection" value="100"/>
+         <property name="maxConnectionUseTime" value="60000"/>
+         <property name="timeout" value="5000"/>
+     </bean>
+     <bean id="GericoSandboxConfiguration-Fr" class="fr.afnic.utils.sql.pool.PoolSqlConnectionConfiguration">
+         <property name="url" >
+            <value>
+            jdbc:oracle:thin:@(DESCRIPTION =
+                         (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic.sandbox.prive.nic.fr )(PORT = 1521))
+                         (CONNECT_DATA =
+                           (SERVER = DEDICATED)
+                           (SERVICE_NAME = NICSANDBOX)
+                         )
+                       )          
+            </value>
+         </property>
+         <property name="poolSize" value="100"/>
+         <property name="maxUsePerConnection" value="100"/>
+         <property name="maxConnectionUseTime" value="60000"/>
+         <property name="timeout" value="5000"/>
+     </bean>
+     <bean id="NicopeConfiguration-Fr" class="fr.afnic.utils.sql.pool.PoolSqlConnectionConfiguration">
+         <property name="url" >
+            <value>
+            jdbc:oracle:thin:@(DESCRIPTION =
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic1.nic.fr)(PORT = 1521))
+               (ADDRESS = (PROTOCOL = TCP)(HOST = dbnic2.nic.fr)(PORT = 1521))
+               (CONNECT_DATA =
+                 (SERVER = DEDICATED)
+                 (SERVICE_NAME = NICPROD)
+               )
+             )          
+            </value>
+         </property>
+         <property name="poolSize" value="100"/>
+         <property name="maxUsePerConnection" value="100"/>
+         <property name="maxConnectionUseTime" value="60000"/>
+         <property name="timeout" value="5000"/>
+     </bean>
+  
+</beans> 

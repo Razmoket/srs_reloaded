@@ -1,0 +1,95 @@
+ <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <import resource="docushare.xml"/>
+    <import resource="sql.xml"/>
+    <import resource="email.xml"/>
+    
+    <!-- Doit etre défini dans les répertories de configuration de chaque application -->
+    <import resource="application.xml"/>
+    <import resource="enum-tld.xml"/>
+    <import resource="generic-tld-service.xml"/>
+
+	
+    <!-- Le service de log est défini à part dans un fichier afnic-commons-service-log.xml -->
+
+
+    <bean id="multiTldDocumentService" class="fr.afnic.commons.services.multitld.MultiTldDocumentService"/>        
+    <bean id="multiTldOldDocumentService" class="fr.afnic.commons.services.multitld.MultiTldOldDocumentService"/>
+    <bean id="multiTldWhoisContactService" class="fr.afnic.commons.services.multitld.MultiTldWhoisContactService"/>
+    <bean id="multiTldDomainService" class="fr.afnic.commons.services.multitld.MultiTldDomainService"/>
+    <bean id="multiTldTicketService" class="fr.afnic.commons.services.multitld.MultiTldTicketService"/>
+    <bean id="multiTldAuthorizationService" class="fr.afnic.commons.services.multitld.MultiTldAuthorizationService"/>
+    <bean id="multiTldAuthorizationRequestService" class="fr.afnic.commons.services.multitld.MultiTldAuthorizationRequestService"/>
+    <bean id="multiTldAuthorizationPreliminaryExamService" class="fr.afnic.commons.services.multitld.MultiTldAuthorizationPreliminaryExamService"/>
+    <bean id="multiTldTradeService" class="fr.afnic.commons.services.multitld.MultiTldTradeService"/>
+    <bean id="multiTldRequestService" class="fr.afnic.commons.services.multitld.MultiTldRequestService"/>
+    <bean id="multiTldStatisticService" class="fr.afnic.commons.services.multitld.MultiTldStatisticService"/>
+    <bean id="multiTldPublicLegalStructureService" class="fr.afnic.commons.services.multitld.MultiTldPublicLegalStructureService"/>
+    <bean id="multiTldEppService" class="fr.afnic.commons.services.multitld.MultiTldEppService"/>
+    <bean id="multiTldOperationFormService" class="fr.afnic.commons.services.multitld.MultiTldOperationFormService"/>
+    <bean id="multiTldUserService" class="fr.afnic.commons.services.multitld.MultiTldUserService"/>
+    <bean id="multiTldDictionaryService" class="fr.afnic.commons.services.multitld.MultiTldDictionaryService"/>
+    <bean id="multiTldEmailService" class="fr.afnic.commons.services.multitld.MultiTldEmailService"/>
+    <bean id="multiTldFaxService" class="fr.afnic.commons.services.multitld.MultiTldFaxService"/>
+    <bean id="multiTldCustomerService" class="fr.afnic.commons.services.multitld.MultiTldCustomerService"/>
+    <bean id="multiTldCustomerContactService" class="fr.afnic.commons.services.multitld.MultiTldCustomerContactService"/>
+    <bean id="multiTldDomainPortfolioService" class="fr.afnic.commons.services.multitld.MultiTldDomainPortfolioService"/>
+    <bean id="multiTldAccountService" class="fr.afnic.commons.services.multitld.MultiTldAccountService"/>
+    <bean id="multiTldProfileService" class="fr.afnic.commons.services.multitld.MultiTldProfileService"/>
+    <bean id="multiTldOperationService" class="fr.afnic.commons.services.multitld.MultiTldOperationService"/>
+    <bean id="multiTldQualificationService" class="fr.afnic.commons.services.multitld.MultiTldQualificationService"/>
+    <bean id="multiTldResultListService" class="fr.afnic.commons.services.multitld.MultiTldResultListService"/>
+    <bean id="multiTldLegalService" class="fr.afnic.commons.services.multitld.MultiTldLegalService"/>
+    <bean id="multiTldBusinessRuleService" class="fr.afnic.commons.services.multitld.MultiTldBusinessRuleService"/>
+    <bean id="multiTldQualityService" class="fr.afnic.commons.services.multitld.MultiTldQualityService"/>
+    <bean id="multiTldPostalAddressService" class="fr.afnic.commons.services.multitld.MultiTldPostalAddressService"/>
+    <bean id="multiTldAgtfService" class="fr.afnic.commons.services.multitld.MultiTldAgtfService"/>
+    
+    
+ 
+    
+    <bean name="provider" class="fr.afnic.commons.services.provider.AppServiceProvider">
+        <property name="postalAddressService" ref="multiTldPostalAddressService"/>
+        <property name="documentService" ref="multiTldDocumentService"/>
+        <property name="oldDocumentService" ref="multiTldOldDocumentService"/>
+        <property name="whoisContactService" ref="multiTldWhoisContactService"/>
+        <property name="domainService" ref="multiTldDomainService"/>
+        <property name="ticketService" ref="multiTldTicketService"/>
+        <property name="authorizationService" ref="multiTldAuthorizationService"/>
+        <property name="authorizationRequestService" ref="multiTldAuthorizationRequestService"/>
+        <property name="authorizationPreliminaryExamService" ref="multiTldAuthorizationPreliminaryExamService"/>
+        
+        <property name="tradeService" ref="multiTldTradeService"/>
+        <property name="requestService" ref="multiTldRequestService"/>
+        <property name="statisticService" ref="multiTldStatisticService"/>
+        <property name="publicLegalStructureService" ref="multiTldPublicLegalStructureService"/>
+        <property name="eppService" ref="multiTldEppService"/>
+        <property name="operationFormService" ref="multiTldOperationFormService"/>
+        <property name="userService" ref="multiTldUserService"/>
+        <property name="dictionaryService" ref="multiTldDictionaryService"/>
+        <property name="emailService" ref="multiTldEmailService"/>
+        <property name="applicationService" ref="applicationService"/>
+        <property name="faxService" ref="multiTldFaxService"/>
+        <property name="customerService" ref="multiTldCustomerService"/>
+        <property name="customerContactService" ref="multiTldCustomerContactService"/>
+        <property name="domainPortfolioService" ref="multiTldDomainPortfolioService"/>
+        <property name="accountService" ref="multiTldAccountService"/>
+        <property name="profileService" ref="multiTldProfileService"/>
+        <property name="operationService" ref="multiTldOperationService"/>
+        <property name="qualificationService" ref="multiTldQualificationService"/>
+        <property name="resultListService" ref="multiTldResultListService"/>   
+        <property name="legalService" ref="multiTldLegalService"/>
+        <property name="businessRuleService" ref="multiTldBusinessRuleService"/> 
+        <property name="qualityService" ref="multiTldQualityService"/>
+        <property name="agtfService" ref="multiTldAgtfService"/>
+         
+    </bean>
+
+    <bean name="facade" class="fr.afnic.commons.services.facade.CustomAppServiceFacade">
+        <property name="provider" ref="provider"/>
+    </bean>
+  
+  
+</beans>

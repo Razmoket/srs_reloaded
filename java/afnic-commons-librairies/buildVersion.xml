@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="main" name="buildVersion">
+
+    <taskdef name="versionTask" classname="fr.afnic.commons.utils.ant.VersionTask">
+        <classpath>
+            <fileset dir="./build/bin" includes="**/*.jar"></fileset>
+            <fileset dir="./build/lib" includes="**/*.jar"></fileset>
+        </classpath>
+    </taskdef>
+    
+    <target name="main">
+        <versionTask destFile="${destFile}" 
+                    p4port="${p4port}" 
+                    p4user="${p4user}" 
+                    p4password="${p4password}"
+                    p4depot="${p4depot}" />
+    </target> 
+    
+</project>

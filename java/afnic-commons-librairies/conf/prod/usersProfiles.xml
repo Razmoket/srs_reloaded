@@ -1,0 +1,244 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+
+
+    <!-- Liste des profils disponibles -->
+     <bean name="Viewer" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+          <property name="rights">
+                <list>
+                    <value>Viewer</value>
+                </list>
+          </property>
+     </bean>
+     
+      <bean name="Marketing" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+		<property name="rights">
+                <list>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>IdentificationRead</value>
+                    <value>TradeRead</value>
+                    <value>TicketRead</value>
+                    <value>EmailView</value>
+                    <value>CustomerRead</value>
+                    <value>QualificationRead</value>
+                    <value>WhoisContactRead</value>
+                    <value>DomainRead</value>
+                </list>
+        </property>
+	 </bean>
+     
+       <bean name="Support" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+          <property name="rights">
+                <list>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>IdentificationRead</value>
+                    <value>TradeRead</value>
+                    <value>TicketRead</value>
+                    <value>EmailView</value>
+                    <value>CustomerRead</value>
+                    <value>QualificationRead</value>
+                    <value>WhoisContactRead</value>
+                    <value>DomainRead</value>
+                    
+                </list>
+          </property>
+     </bean>    
+    
+    <bean name="AccountManager" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+          <property name="rights">
+                <list>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>IdentificationRead</value>
+                    <value>TradeRead</value>
+                    <value>TicketRead</value>
+                    <value>EmailView</value>
+                    <value>AccountManager</value>
+                    <value>AuthorizationWrite</value>
+                    <value>IdentificationWrite</value>
+                    <value>TradeWrite</value>
+                    <value>TicketWrite</value>
+                    <value>EmailSend</value>
+                    <value>AccountManager</value>
+                    <value>AuthorizationUnlock</value>
+                    <value>AuthorizationSuppression</value>
+                    <value>IdentificationUnlock</value>
+                    <value>TradeUnlock</value>
+                    <value>TradeSuppression</value>
+                    <value>Admin</value>
+                    <value>CustomerUpdate</value>
+                    <value>CustomerRead</value>
+                    <value>CustomerCreate</value>
+                    <value>QualificationRead</value>
+                    <value>WhoisContactRead</value>
+                    <value>QualificationWrite</value>
+                    <value>DomainRead</value>
+                    <value>StagedDelete</value>
+                    <value>QualificationStat</value>
+                    
+                    
+                </list>
+          </property>
+     </bean>
+     
+     <bean name="AccountManagerAdmin" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+          <property name="rights">
+                <list>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>IdentificationRead</value>
+                    <value>TradeRead</value>
+                    <value>TicketRead</value>
+                    <value>EmailView</value>
+                    <value>AccountManager</value>
+                    <value>AuthorizationWrite</value>
+                    <value>IdentificationWrite</value>
+                    <value>TradeWrite</value>
+                    <value>TicketWrite</value>
+                    <value>EmailSend</value>
+                    <value>AccountManager</value>
+                    <value>AuthorizationUnlock</value>
+                    <value>AuthorizationSuppression</value>
+                    <value>IdentificationUnlock</value>
+                    <value>TradeUnlock</value>
+                    <value>TradeSuppression</value>
+                    <value>Admin</value>
+                    <value>CustomerUpdate</value>
+                    <value>CustomerRead</value>
+                    <value>CustomerCreate</value>
+                    <value>QualificationRead</value>
+                    <value>QualificationWrite</value>
+                    <value>WhoisContactRead</value>
+                    <value>DomainRead</value>
+                    <value>WhoisContactWrite</value>
+                    <value>StagedDelete</value>
+                    <value>QualificationStat</value>
+                    <value>QualificationCreate</value>
+                  </list>
+          </property>
+     </bean>
+     
+       <bean name="Root" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+          <property name="rights">
+                <list>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>AuthorizationWrite</value>
+                    <value>AuthorizationUnlock</value>
+                    <value>AuthorizationSuppression</value>
+                    <value>TradeRead</value>
+                    <value>TradeWrite</value>
+                    <value>TradeUnlock</value>
+                    <value>TradeSuppression</value>
+                    <value>IdentificationRead</value>
+                    <value>IdentificationWrite</value>
+                    <value>IdentificationUnlock</value>
+                    
+                    <value>Admin</value>
+                    
+                    <value>StatistictRead</value>
+                    <value>StagedDelete</value>
+                    <value>CustomerCreate</value>
+                    <value>CustomerUpdate</value>
+                    <value>CustomerRead</value>
+                    <value>AccountManager</value>
+                    
+                    <value>TicketRead</value>
+                    <value>TicketWrite</value>
+                    <value>EmailView</value>
+                    <value>EmailSend</value>
+                    
+                    <value>QualificationRead</value>
+                    <value>QualificationWrite</value>
+                    <value>QualificationCreate</value>
+                    
+                    <value>OperationRelaunch</value>
+                    
+                    <value>WhoisContactRead</value>                    
+                    <value>WhoisContactWrite</value>
+                    <value>WhoisContactBlockportfolio</value>  
+                    
+                    <value>DomainRead</value>
+                    <value>DomainBlock</value>
+                    <value>QualificationStat</value>  
+                    <value>AgtfManager</value>                 
+                    
+                </list>
+          </property>
+     </bean>
+     
+ 
+     <bean name="Process" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+         <property name="rights">
+                <list>
+                    <value>StatistictRead</value>
+                    <value>StagedDelete</value>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>IdentificationRead</value>
+                    <value>TradeRead</value>
+                    <value>TicketRead</value>
+                    <value>EmailView</value>
+                    <value>CustomerRead</value>
+                    <value>AccountManager</value>
+                    <value>AuthorizationWrite</value>
+                    <value>IdentificationWrite</value>
+                    <value>TradeWrite</value>
+                    <value>TicketWrite</value>
+                    <value>EmailSend</value>
+                    <value>AccountManager</value>
+                    <value>AuthorizationUnlock</value>
+                    <value>AuthorizationSuppression</value>
+                    <value>IdentificationUnlock</value>
+                    <value>TradeUnlock</value>
+                    <value>TradeSuppression</value>
+                    <value>Admin</value>
+                    <value>CustomerUpdate</value>
+                    <value>CustomerCreate</value>
+                    <value>CustomerRead</value>
+                    
+                    <value>WhoisContactRead</value>
+                    <value>DomainRead</value>
+                    
+                    <value>QualificationRead</value>
+                    <value>QualificationStat</value>
+                </list>
+            </property>
+     </bean>
+     
+     
+     <bean name="Ajpr" class=" fr.afnic.commons.beans.profiling.users.UserProfile">
+          <property name="rights">          
+                <list>
+                    <value>Viewer</value>
+                    <value>AuthorizationRead</value>
+                    <value>IdentificationRead</value>
+                    <value>TradeRead</value>
+                    <value>TicketRead</value>
+                    <value>EmailView</value>
+                    <value>CustomerRead</value>
+                    <value>CustomerUpdate</value>
+                    <value>CustomerCreate</value>
+                    <value>StagedDelete</value>
+                    <value>TicketWrite</value>
+                    <value>WhoisContactRead</value>
+                    <value>DomainRead</value>
+                    <value>DomainBlock</value>
+                    <value>WhoisContactWrite</value>
+                    <value>QualificationRead</value>
+                    <value>QualificationWrite</value>
+                    <value>QualificationStat</value>
+                    <value>StagedDelete</value>
+                    <value>QualificationCreate</value>
+                    
+                </list>
+          </property>
+     </bean>
+      
+</beans>

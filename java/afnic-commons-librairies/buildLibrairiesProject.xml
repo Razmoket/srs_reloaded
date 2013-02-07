@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+    Fichier chargé de construire les projet de librairies.
+    Il doit etre appelé depuis le répertoire du projet à construire.
+-->
+<project basedir="./" default="build" name="afnic-commons-librairies">
+
+    <property environment="env" />
+    <property file="buildProject.properties" />
+    <property file="buildProject.${env.AFNIC_MODE}.properties" />
+    
+    <property name="project.name" value="${ant.project.name}"/>
+    <property name="build.dir" value = "../${project.name}/build" />
+    <property name="junit.dir" value="${commons-librairies}/lib/junit/4.7"></property>
+   
+    
+    
+    
+    <property name="commons-librairies" value="../afnic-commons-librairies"/>
+    
+    
+    <target name="compileSpecificsTask" >
+    
+    	   <path id="SpecificsTask.classpath" >
+              <fileset dir="../afnic-commons-librairies/lib/jdom/1.0" includes="**/*.jar"/>
+              <fileset dir="../afnic-commons-librairies/lib/commons/lang/2.4" includes="**/*.jar"/>
+              <fileset dir="../afnic-commons-librairies/lib/guava/r07" includes="**/*.jar"/>
+              <fileset dir="../afnic-commons-librairies/lib/jooq/2.5.0" includes="**/*.jar"/>
+              <fileset dir="../afnic-commons-librairies/lib/ojdbc/14" includes="**/*.jar"/>
+        </path>
+        
+        <mkdir dir="${build.dir}/classes"></mkdir>
+        <echo>${build.dir}/classes</echo>
+         <javac srcdir="../afnic-commons-librairies/src" 
+                destdir="${build.dir}/classes" 
+                classpathref="SpecificsTask.classpath" 
+                source="1.6"
+                encoding="UTF-8"
+                verbose="no" >
+         </javac>
+         
+        <path id="SpecificsTask.path">
+                <pathelement path="${build.dir}/classes" />
+                <fileset dir="../afnic-commons-librairies/lib/jdom/1.0" includes="**/*.jar"/>
+                <fileset dir="../afnic-commons-librairies/lib/commons/lang/2.4" includes="**/*.jar"/>
+                <fileset dir="../afnic-commons-librairies/lib/guava/r07" includes="**/*.jar"/>
+                <fileset dir="../afnic-commons-librairies/lib/jooq/2.5.0" includes="**/*.jar"/>
+                <fileset dir="../afnic-commons-librairies/lib/ojdbc/14" includes="**/*.jar"/>
+        </path>
+    
+    </target>
+    
+     <target name="loadClasspathTask" depends="compileSpecificsTask">
+        <taskdef classpathref="SpecificsTask.path"  
+                 name="ClasspathTask" 
+                 classname="fr.afnic.commons.utils.ant.ClasspathTask" />
+         
+         <ClasspathTask/>
+         
+         <path id="depedency.librairies.path">
+             <fileset  dir="${commons-librairies}/lib/" includes="${depedency.librairies}" ></fileset>
+         </path>
+         
+    </target>
+    
+      <target name="loadJooqStubGenerationTask" depends="compileSpecificsTask">
+        <taskdef classpathref="SpecificsTask.path"  
+                 name="JooqStubGenerationTask" 
+                 classname="fr.afnic.commons.utils.ant.JooqStubGenerationTask" />
+    </target>
+    
+    
+    <target name="loadWsdlTask" depends="compileSpecificsTask">    	
+        <taskdef classpathref="SpecificsTask.path"  
+                 name="WsdlTask" 
+                 classname="fr.afnic.commons.utils.ant.WsdlTask" />
+         
+    </target>
+    
+    <target name="loadMergeXsdTask" depends="compileSpecificsTask">      
+          <taskdef classpathref="SpecificsTask.path"  
+                 name="MergeXsdTask" 
+                 classname="fr.afnic.commons.utils.ant.MergeXsdTask" />
+    </target>
+             
+    <!-- Tache chargée de loader des taches ant spécidiques telles que findbug, checkstyle, ... -->
+    <target name="loadSpecificsTask" depends="loadClasspathTask, loadMergeXsdTask, loadJooqStubGenerationTask, loadWsdlTask">
+        <taskdef classpath="${commons-librairies}/lib/findbug/findbugs-ant.jar" 
+                name="findbugs"
+                classname="edu.umd.cs.findbugs.anttask.FindBugsTask" />
+           
+        <taskdef resource="checkstyletask.properties">
+            <classpath>
+                <fileset dir="${commons-librairies}/lib/checkstyle/4.4" includes="*.jar" />
+            </classpath>
+        </taskdef>
+    
+        <!-- Déclaration permettant d'utiliser les ant-contrib (task if, for,...) -->
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+          <classpath>
+            <pathelement location="${commons-librairies}/lib/ant-contrib/1.0b3/ant-contrib.jar"/>
+          </classpath>
+        </taskdef>
+        
+        <!-- Déclaration nécessaire pour l'utilisation de emma (couverture des tests) -->
+        <path id="emma.lib" >
+            <pathelement location="${commons-librairies}/lib/emma/2.0.5312/emma.jar" />
+            <pathelement location="${commons-librairies}/lib/emma/2.0.5312/emma_ant.jar" />
+        </path>
+        <taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+        
+        <taskdef name="testability" classname="com.google.ant.TestabilityTask"  >
+             <classpath>
+                  <fileset dir="${commons-librairies}/lib/testability-explorer/1.3.0" includes="*.jar" />
+            </classpath>
+        </taskdef>
+     
+        
+    </target>
+    
+    <!-- Affiche les variables qui parametrent le build -->
+    <target name="showProperties" depends="loadSpecificsTask">
+    
+        
+        <echo>Project: ${project.name}</echo>
+        <echo>AFNIC_Mode: ${env.AFNIC_MODE}</echo>
+        <echo>isEnabledTest: ${isEnabledTest}</echo>
+        <echo>isEnabledDoc: ${isEnabledDoc}</echo>
+        <echo>isEnabledVersionning: ${isEnabledVersionning}</echo>
+        <echo>depedency.projects: [${depedency.projects}]</echo>
+        <echo>depedency.librairies: [${depedency.librairies}]</echo>
+        <echo>commons-librairies: ${commons-librairies}</echo>
+        <echo>build.dir: ${build.dir}</echo>
+        
+    </target> 
+    
+    <!-- Vérification de la variable d'environnement AFNIC_MODE -->
+    <target name="checkAfnicMode" depends="showProperties">
+
+        <condition property="isSetAfnicMode">
+            <isset property="env.AFNIC_MODE" />
+        </condition>
+        <fail message="AFNIC Mode is not set" unless="isSetAfnicMode" />
+
+        <condition property="isLegalAfnicMode">
+            <or>
+                <equals arg1="${env.AFNIC_MODE}" arg2="dev" />
+                <equals arg1="${env.AFNIC_MODE}" arg2="preprod" />
+                <equals arg1="${env.AFNIC_MODE}" arg2="sandbox" />
+                <equals arg1="${env.AFNIC_MODE}" arg2="prod" />
+            </or>
+        </condition>
+        <fail message="AFNIC Mode is illegal" unless="isLegalAfnicMode" />
+    </target>
+    
+    <!-- Nettoie le dossier de génération ./build -->
+    <target name="clean" depends="checkAfnicMode" >
+        <mkdir dir="build/"></mkdir>
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="build" includes="**/*"/>
+        </delete>
+        <mkdir dir="build/bin"></mkdir>
+        <mkdir dir="build/lib"></mkdir>
+    </target>
+      
+    
+    <!-- mets à jour le dossier ./${build.dir}/lib avec les librairies nécessaires -->
+    <target name="init" depends="clean">
+        <echo>Copy ${ant.project.name} librairies to ./${build.dir}/lib</echo>
+        <copy todir="./${build.dir}/lib" overwrite="true">
+            <path refid="depedency.librairies.path"/>
+        </copy>
+        
+        <!-- Lib permettant d'utiliser l'annotation suppressWarning pour les erreurs findbugs -->
+        <copy file="${commons-librairies}/lib/findbug/annotations.jar" todir="./${build.dir}/lib/findbug/" overwrite="true"/>
+        
+        
+    </target>
+    
+        
+    <!-- Appel les target build des projet dont dépend ce projet et 
+        récupère les dossiers lib et bin générés pour les rappatrier dans ./${build.dir}/lib  
+        La variable build-dependencies doit etre initialisée avec la liste des noms des projets.
+     -->
+    <target name="build-dependencies" depends="init" if="depedency.projects">
+        <foreach list="${depedency.projects}" param="depedency-project" target="build-depedency"></foreach>
+    </target>
+    
+    <target name="checkAlreadyBuildDependency">
+        <condition property="dependency.file.not.exist">
+            <not>
+                <available file="${build.dir}/bin/${depedency-project}.jar"/>
+            </not>
+        </condition>
+    </target>
+    
+    <!-- Tache appelée depuis build-dependencies pour chaque projet dont dépend ce projet -->
+    <!-- la construction du projet est lancée uniquement si dans build/bin, il n'y a pas déja le jar (projet non contruit) -->
+     <target name="build-depedency" depends="checkAlreadyBuildDependency" if="dependency.file.not.exist">
+        <echo>build project ${depedency-project}</echo>
+        <!-- Lance la compilation du projet -->
+        <ant dir="../${depedency-project}" 
+             antfile="buildProject.xml" 
+             target="build"
+             inheritAll="false">
+              <property name="project.name" value="${project.name}"/>
+        </ant>
+        
+        
+        <copy todir="./${build.dir}/conf" failonerror="false" overwrite="true">
+            <fileset dir="../${depedency-project}/conf/${env.AFNIC_MODE}"/>
+        </copy>
+    </target>
+    
+    <target name="before-compile">
+        <!-- tache d'extension -->
+     </target>
+    
+    
+    <!-- compile le projet avec comme classpath le contenu du ./${build.dir}/lib et génère les fichiers class dans ./${build.dir}/classes  -->
+    <target name="compile" depends="build-dependencies,before-compile">
+        
+        
+        <echo> compile in ${build.dir}</echo>
+        <path id="build.classpath">
+            <fileset dir="${build.dir}/lib/">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${build.dir}/bin/">
+                <include name="*.jar" />
+            </fileset>
+            <fileset dir="${junit.dir}">
+                <include name="*.jar" />
+            </fileset>
+        </path>
+        
+        
+     
+        <mkdir dir="./${build.dir}/classes/src"/>
+        <mkdir dir="./${build.dir}/bin"/>
+        <javac srcdir="./src/" 
+               destdir="./${build.dir}/classes/src" 
+               classpathref="build.classpath" 
+               verbose="no" 
+               source="1.6"
+               encoding="UTF-8"
+               debug="true" 
+               debuglevel="lines,vars,source">
+               <include name="**/*.java" />
+        </javac>
+        
+        
+         <copy todir="./${build.dir}/classes/src" overwrite="true">
+            <fileset dir="./src/" />
+        </copy>
+        <!-- Copy des configurations -->
+        <mkdir dir="./${build.dir}/conf"/> 
+        <!-- La gestionn est splittée car on n'a pas forcément de configuration dans le projet 
+                et "./conf/${env.AFNIC_MODE}" peut ne pas exister -->
+        <copy todir="./${build.dir}/conf" failonerror="false" overwrite="true">
+            <fileset dir="../afnic-commons-librairies/conf/${env.AFNIC_MODE}"/>
+        </copy>
+        <copy todir="./${build.dir}/conf" failonerror="false" overwrite="true">
+            <fileset dir="./conf/${env.AFNIC_MODE}"/>
+        </copy>
+        
+    </target>
+    
+    <target name="before-build">
+        <!-- tache d'extension -->
+     </target>
+    
+    <!-- utilise les fichiers class de ./${build.dir}/classes pour générer un fichier jar dans ./${build.dir}/bin  -->
+    <target name="build" depends="compile, before-build">
+        <echo message="Create ${ant.project.name}.jar"/>
+        <mkdir dir="./${build.dir}/bin/"/>
+        <jar jarfile="./${build.dir}/bin/${ant.project.name}.jar" 
+            includes="**/*.class, **/*.java" 
+            basedir="${build.dir}/classes/src">
+               <fileset dir="${build.dir}/classes/src"/>
+        </jar>    
+    </target>
+    
+    <target name="versionning" depends="build">
+        <if>
+             <equals arg1="${isEnabledVersionning}" arg2="true" />
+             <then> 
+                 <echo>versionning enabled</echo>
+                <!-- Mise à jour de la version du produit -->
+                <ant antfile="../afnic-commons-librairies/buildVersion.xml" target="main" inheritall="true"></ant>
+              </then>
+              <else>
+                 <echo>versionning disabled</echo>
+              </else>
+             </if>
+    </target>
+    
+    <!-- Execute les tests si la variable isEnabledTest est à true-->
+    <target name="test" depends="doc" >
+        <if>
+         <equals arg1="${isEnabledTest}" arg2="true" />
+         <then> 
+            <echo>test enabled</echo>
+            
+            <property name="test.coverage" value="./${build.dir}/report/test/coverage/"/>
+            <property name="test.result" value="./${build.dir}/report/test/result/"/>
+        
+            <mkdir dir="${test.coverage}"/>
+            <mkdir dir="${test.result}"/>
+            
+             
+            <path id="build.classpath">
+                <pathelement location="./${build.dir}/classes/src" />
+                <fileset dir="./${build.dir}/lib">
+                    <include name="**/*.jar" />
+                </fileset>
+                <fileset dir="${build.dir}/bin/">
+                    <include name="**/*.jar" />
+                </fileset>
+                <fileset dir="${junit.dir}">
+                    <include name="*.jar" />
+                </fileset>
+            </path> 
+            
+            <!-- compilation des classes de test et des classes à tester-->
+            <mkdir dir="${build.dir}/classes/test" />
+            <javac srcdir="./test/" 
+               destdir="./${build.dir}/classes/test" 
+               classpathref="build.classpath" 
+               verbose="yes" 
+               source="1.6"
+                debug="true" 
+               debuglevel="lines,vars,source">
+               <include name="**/*.java" />
+            </javac>
+            
+            <!-- Lance les instruments de emma pour la couvertures des tests -->
+           <emma>  
+               <instr instrpath="${build.dir}/classes/src"
+                      destdir="${test.coverage}/classes"  
+                      metadatafile="${test.coverage}/metadata.emma"
+                      merge="true"  >  
+                </instr>
+            </emma>  
+            
+            <echo>${commons-librairies}/conf/${env.AFNIC_MODE}</echo>
+            
+              <!-- Copie des conf dans le classpath pour permettre les tests unitaires -->
+             <mkdir dir="./WebContent/WEB-INF/classes"></mkdir>
+             
+              <copy todir="./WebContent/WEB-INF/classes" failonerror="false" overwrite="true">
+                   <fileset dir="./${build.dir}/conf"/>
+             </copy>
+                        
+                          
+            <junit showoutput="yes" printsummary="yes" haltonfailure="no" fork="yes" dir="./">
+                <jvmarg value="-Demma.coverage.out.file=${test.coverage}/coverage.emma" />  
+                <jvmarg value="-Demma.coverage.out.merge=true" />  
+                
+                
+                <classpath>
+                    <pathelement location="${test.coverage}/classes"/> 
+                    <pathelement location="./${build.dir}/classes/test"/> 
+                    <pathelement location="./${build.dir}/classes/src"/> 
+                    <fileset dir="${build.dir}/lib/">
+                        <include name="**/*.jar" />
+                    </fileset>
+                    <fileset dir="${commons-librairies}/lib/emma/">
+                        <include name="**/*.jar" />
+                    </fileset> 
+                    <fileset dir="${junit.dir}">
+                        <include name="*.jar" />
+                    </fileset>
+                    
+                    <!-- fichiers de conf -->
+                   <!-- <fileset dir="${commons-librairies}/conf/${env.AFNIC_MODE}">
+                        <include name="*" />
+                    </fileset> -->
+                    
+                    <pathelement location="./${build.dir}/conf"/>
+                    <pathelement location="conf/${env.AFNIC_MODE}"/>
+                    <pathelement location="${commons-librairies}/conf/${env.AFNIC_MODE}"/> 
+                   
+                   
+                </classpath>
+                
+                
+    
+                <formatter type="xml" />
+                <batchtest todir="${test.result}">
+                    <!-- On lance toutes les classes qui se terminent par Test, sauf celles qui terminent par SuiteTest -->
+                    <!-- SuiteTest désigne une suite de test et non pas un test seul, si on lance les suiteTest, les tests qui la compose seront lancé plusieurs fois-->
+                    <fileset dir="${build.dir}/classes/test/" >
+                        <include name="**/*Test.class"/>
+                        <exclude name="**/*SuiteTest.class"/><!-- Suite de test -->
+                        <exclude name="**/*ContractTest.class"/><!-- Classe de test abstraite -->
+                        <exclude name="**/WebTest.class"/>
+                        <exclude name="**/PageTest.class"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+            
+            <!-- Genere le rapport de couverture de test -->
+            <emma enabled="true" verbosity="silent">
+                 <report  sourcepath="src">
+                    <infileset dir="${test.coverage}" includes="*.emma" />
+                    <xml outfile="${test.coverage}/coverage.xml" depth="method" columns="name,class,method,block,line,line" />
+                    <html outfile="${test.coverage}/coverage.html" columns="name,class,method,block,line,line"  />
+                 </report>
+            </emma>
+            
+            
+         </then>
+         <else>
+            <echo>test disabled</echo>
+         </else>
+        </if>
+    </target>
+    
+    <!--  -->
+    <target name="doc" depends="versionning">
+        <if>
+             <equals arg1="${isEnabledDoc}" arg2="true" />
+             <then> 
+                 <echo>doc enabled</echo>
+                 <mkdir dir="${build.dir}/docs/"/>
+                 <!-- <javadoc sourcepath="src/" 
+                            packagenames="fr.afnic.*"
+                            destdir="${build.dir}/docs/" 
+                            classpathref="build.classpath"
+                            private="true" doclet="org.jboss.apiviz.APIviz" 
+                            docletpath="${commons-librairies}/lib/apiviz/1.3.1/apiviz-1.3.1.GA.jar"
+                            additionalparam="-author -version" />
+                  -->  
+                    <mkdir dir="${build.dir}/report/code-analysis/findbug" />
+                    <findbugs 
+                        home="${commons-librairies}/lib//findbug" output="xml"
+                        outputFile="${build.dir}/report/code-analysis/findbug/findbug.xml"  
+                        excludeFilter="${commons-librairies}/findbug-filter.xml"
+                        
+                        >
+                        <auxClasspath>
+                            <fileset dir="${build.dir}">
+                                <include name="**/*.jar" />
+                                <exclude name="**/*stub*" />
+                            </fileset>
+                        </auxClasspath>
+                        <sourcePath path="src/" />
+                        
+                        <class location="${build.dir}/bin/${ant.project.name}.jar" />
+                    </findbugs>
+                        
+                    <mkdir dir="${build.dir}/report/code-analysis/checkstyle" />
+                    <checkstyle config="${commons-librairies}/afnic_checks.xml"
+                        failOnViolation="no">
+                                
+                       <fileset dir="src/"  casesensitive="yes">
+                          <include name="**/*.java"/>
+                          <exclude name="**/fr/afnic/thrift/gateway/**"/>
+                          <exclude name="**/fr/afnic/gateway/stub/**"/>
+                          <exclude name="**/org/apache/**"/>
+                          
+                        </fileset>
+                                
+                        <formatter type="xml" toFile="${build.dir}/report/code-analysis/checkstyle/checkstyle.xml" />
+                        <classpath>
+                            <fileset dir="${build.dir}/lib">
+                                <include name="**/*.jar" />
+                            </fileset>
+                            <fileset dir="${build.dir}/bin">
+                                <include name="*.jar" />
+                            </fileset>
+                        </classpath>
+                    </checkstyle>
+                 
+                     <mkdir dir="${build.dir}/report/code-analysis/testability-explorer" />
+                     <testability resultfile="${build.dir}/report/code-analysis/testability-explorer/testability.xml"
+                         whitelist="mx4j.,lombok.,ch.,com.,org.,net.,oracle.,junit.,fr.afnic.thrift.gateway,.*stub,eu.,leon.,freemarker.,bsh.,antlr.,edu."
+                        print="xml" >
+                         <classpath>
+                           <fileset dir="${build.dir}/bin">
+                             <include name="*.jar"/>
+                           </fileset>
+                           <fileset dir="${build.dir}/lib">
+                               <include name="**/*.jar"/>
+                            </fileset>
+                         </classpath>
+                     </testability>
+
+                    
+                </then>
+                <else>
+                    <echo>doc disabled</echo>
+                </else>
+            </if>
+    </target>
+    
+     <target name="buildPack" depends="doc">
+         <!-- Tache d'extension-->
+     </target>
+    
+    <target name="deploy" depends="buildPack">
+        <!-- Tache d'extension-->
+    </target>
+    
+</project>

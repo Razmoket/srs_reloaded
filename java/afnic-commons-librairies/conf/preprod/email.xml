@@ -1,0 +1,54 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                          http://www.springframework.org/schema/util 
+                          http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+   
+    
+    
+   <bean name="auto-gdd-authentification" class="fr.afnic.commons.beans.Authentification">
+         <constructor-arg index="0" value="auto-gdd-preprod@hermes.nic.fr"/>
+        <constructor-arg index="1" value="gdd-preprod"/>
+   </bean>
+   <bean name="valorization-authentification" class="fr.afnic.commons.beans.Authentification">
+         <constructor-arg index="0" value="valorisation-preprod@hermes.nic.fr"/>
+        <constructor-arg index="1" value="preprod-valorisation"/>
+   </bean> 
+   
+    <bean name="justification-authentification" class="fr.afnic.commons.beans.Authentification">
+        <constructor-arg index="0" value="justification-preprod@hermes.nic.fr"/>
+        <constructor-arg index="1" value="preprod-justification"/>
+   </bean>  
+  
+   <bean name="auto-gdd-box" class="fr.afnic.commons.beans.mail.reception.ImapEmailBox">
+       <constructor-arg index="0" ref="auto-gdd-authentification"/>
+       <constructor-arg index="1" value="zimbra.nic.fr"/>
+       <constructor-arg index="2" value="143"/>
+  </bean>
+  
+   <bean name="valorization-box" class="fr.afnic.commons.beans.mail.reception.ImapEmailBox">
+       <constructor-arg index="0" ref="valorization-authentification"/>
+       <constructor-arg index="1" value="zimbra.nic.fr"/>
+       <constructor-arg index="2" value="143"/>
+  </bean>
+  
+   <bean name="justification-box" class="fr.afnic.commons.beans.mail.reception.ImapEmailBox">
+        <constructor-arg index="0" ref="justification-authentification"/>
+        <constructor-arg index="1" value="zimbra.nic.fr"/>
+        <constructor-arg index="2" value="143"/>
+  </bean>
+  
+    <bean id="emailService" class=" fr.afnic.commons.services.smtp.SmtpEmailService">
+        <property name="host" value="smtp.nic.fr" />
+        <property name="emailBoxMap" >
+             <map key-type="fr.afnic.commons.beans.mail.EmailBox">
+              <entry key="AutoGdd" value-ref="auto-gdd-box" />
+              <entry key="Justification" value-ref="justification-box" />
+              <entry key="Valorization" value-ref="valorization-box" />
+            </map>
+        </property>
+    </bean>
+</beans>

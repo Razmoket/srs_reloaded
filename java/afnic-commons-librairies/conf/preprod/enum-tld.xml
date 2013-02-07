@@ -1,0 +1,42 @@
+ <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+     
+    <bean name="FrProvider" class="fr.afnic.commons.services.provider.TldServiceProvider">
+        <property name="documentService" ref="generic-documentService"/>
+        <property name="oldDocumentService" ref="generic-oldDocumentService"/>
+        <property name="whoisContactService" ref="generic-whoisContactService-Fr"/>
+        <property name="domainService" ref="generic-domainService-Fr"/>
+        <property name="ticketService" ref="generic-ticketService-Fr"/>
+        <property name="authorizationService" ref="generic-authorizationService-Fr"/>
+        <property name="authorizationRequestService" ref="generic-authorizationRequestService-Fr"/>
+        <property name="authorizationPreliminaryExamService" ref="generic-authorizationPreliminaryExamService-Fr"/>
+        
+        <property name="tradeService" ref="generic-tradeService-Fr"/>
+        <property name="requestService" ref="generic-requestService-Fr"/>
+        <property name="statisticService" ref="generic-statisticService-Fr"/>
+        <property name="publicLegalStructureService" ref="generic-publicLegalStructureWithCacheService"/>
+        <property name="eppService" ref="generic-eppService"/>
+        <property name="operationFormService" ref="generic-operationFormService-Fr"/>
+        <property name="userService" ref="generic-userService-Fr"/>
+        <property name="dictionaryService" ref="generic-dictionaryService-Fr"/>
+        <property name="emailService" ref="generic-emailService"/>
+        <property name="faxService" ref="generic-faxService"/>
+        <property name="customerService" ref="generic-customerService"/>
+        <property name="customerContactService" ref="generic-customerContactService"/>
+        <property name="domainPortfolioService" ref="generic-domainPortfolioService"/>
+        <property name="accountService" ref="generic-accountService"/>
+        <property name="profileService" ref="generic-profileService-Fr"/>
+        <property name="operationService" ref="generic-operationService-Fr"/>
+        <property name="qualificationService" ref="generic-qualificationService-Fr"/>
+        <property name="resultListService" ref="generic-resultListService"/>   
+        <property name="legalService" ref="generic-legalService-Fr"/>
+        <property name="businessRuleService" ref="generic-businessRuleService-Fr"/> 
+        <property name="qualityService" ref="generic-qualityService-Fr"/>
+        <property name="postalAddressService" ref="generic-postalAddressService"/>
+        <property name="agtfService" ref="generic-agtfService-Fr"/>
+         
+    </bean>
+  
+  
+</beans>

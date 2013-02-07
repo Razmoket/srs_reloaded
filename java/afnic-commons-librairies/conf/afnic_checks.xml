@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+
+	<property name="severity" value="warning" />
+	<!-- Checks that a package.html file exists for each package.     -->
+	<!-- See http://checkstyle.sf.net/config_javadoc.html#PackageHtml -->
+	<!-- module name="PackageHtml"/>-->
+	<!--
+		Demande un fichier package.html pour chaque package
+	-->
+
+	<!--
+		Checks whether files end with a new line.
+	-->
+	<!--
+		See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile
+	-->
+	<module name="NewlineAtEndOfFile" />
+
+	<!-- Checks that property files contain the same keys.         -->
+	<!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+	<module name="Translation" />
+
+
+	<module name="TreeWalker">
+		<property name="severity" value="warning" />
+
+		<!-- Checks for Javadoc comments.                     -->
+		<!-- See http://checkstyle.sf.net/config_javadoc.html -->
+		<module name="JavadocMethod">
+			<property name="allowMissingPropertyJavadoc" value="true" />
+			<property name="severity" value="warning" />
+		</module>
+		<module name="JavadocType">
+			<property name="severity" value="warning" />
+		</module>
+		<!-- <module name="JavadocVariable"/> -->
+		<!-- <module name="JavadocStyle"/> -->
+
+
+		<!-- Checks for Naming Conventions.                  -->
+		<!-- See http://checkstyle.sf.net/config_naming.html -->
+		<module name="ConstantName" />
+		<module name="LocalFinalVariableName" />
+		<module name="LocalVariableName" />
+		<module name="MemberName" />
+		<module name="MethodName" />
+		<module name="PackageName" />
+		<module name="ParameterName" />
+		<module name="StaticVariableName" />
+		<module name="TypeName" />
+
+
+		<!-- Checks for Headers                                -->
+		<!-- See http://checkstyle.sf.net/config_header.html   -->
+		<!-- <module name="Header">                            -->
+		<!-- The follow property value demonstrates the ability     -->
+		<!-- to have access to ANT properties. In this case it uses -->
+		<!-- the ${basedir} property to allow Checkstyle to be run  -->
+		<!-- from any directory within a project. See property      -->
+		<!-- expansion,                                             -->
+		<!-- http://checkstyle.sf.net/config.html#properties        -->
+		<!-- <property                                              -->
+		<!--     name="headerFile"                                  -->
+		<!--     value="${basedir}/java.header"/>                   -->
+		<!-- </module> -->
+
+		<!-- Following interprets the header file as regular expressions. -->
+		<!-- <module name="RegexpHeader"/>                                -->
+
+
+		<!-- Checks for imports                              -->
+		<!-- See http://checkstyle.sf.net/config_import.html -->
+		<module name="AvoidStarImport" />
+		<module name="IllegalImport" /> <!-- defaults to sun.* packages -->
+		<module name="RedundantImport" />
+		<module name="UnusedImports" />
+
+
+		<!-- Checks for Size Violations.                    -->
+		<!-- See http://checkstyle.sf.net/config_sizes.html -->
+		<module name="FileLength" />
+
+
+		<module name="LineLength">
+			<property name="max" value="150" />
+		</module>
+		<module name="MethodLength" />
+		<module name="ParameterNumber" />
+
+
+		<!-- Checks for whitespace                               -->
+		<!-- See http://checkstyle.sf.net/config_whitespace.html -->
+		<module name="EmptyForIteratorPad" />
+		<module name="MethodParamPad" />
+		<!-- <module name="NoWhitespaceAfter"/>-->
+		<!--
+			Alerte sur: String[] voyelles = { "A", "E", "I", "O", "U", "Y" };
+		-->
+		<module name="NoWhitespaceBefore" />
+		<module name="OperatorWrap" />
+		<!-- <module name="ParenPad"/>-->
+		<module name="TypecastParenPad" />
+		<module name="TabCharacter" />
+		<module name="WhitespaceAfter" />
+		<!-- <module name="WhitespaceAround"/> -->
+
+
+		<!-- Modifier Checks                                    -->
+		<!-- See http://checkstyle.sf.net/config_modifiers.html -->
+		<module name="ModifierOrder" />
+		<!-- <module name="RedundantModifier"/>-->
+		<!--
+			Leve un warning pour une methode public dans une interface
+		-->
+
+
+		<!-- Checks for blocks. You know, those {}'s         -->
+		<!-- See http://checkstyle.sf.net/config_blocks.html -->
+		<module name="AvoidNestedBlocks" />
+		<module name="EmptyBlock" />
+		<module name="LeftCurly" />
+		<!-- <module name="NeedBraces"/>-->
+		<module name="RightCurly" />
+
+
+		<!-- Checks for common coding problems               -->
+		<!-- See http://checkstyle.sf.net/config_coding.html -->
+		<!-- ><module name="AvoidInlineConditionals"/>-->
+		<!--
+			empeche l'operateur bou?ba:bi
+		-->
+		<module name="DoubleCheckedLocking" />
+		<module name="EmptyStatement" />
+		<module name="EqualsHashCode" />
+		<!-- <module name="HiddenField"/>-->
+		<module name="IllegalInstantiation" />
+		<module name="InnerAssignment" />
+
+		<!--
+			empeche toute utilisation de chiffre dans le code Pourrais etre utile
+			si modéré...
+		-->
+		<!-- <module name="MagicNumber"/>-->
+		<module name="MissingSwitchDefault" />
+		<module name="RedundantThrows" />
+		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanReturn" />
+
+		<!-- Checks for class design                         -->
+		<!-- See http://checkstyle.sf.net/config_design.html -->
+		<!-- <module name="DesignForExtension"/>-->
+		<module name="FinalClass" />
+		<module name="HideUtilityClassConstructor" />
+		<module name="InterfaceIsType" />
+		<!-- <module name="VisibilityModifier"/>-->
+		<!--
+			Empeche les attribut en protected
+		-->
+
+
+		<!-- Miscellaneous other checks.                   -->
+		<!-- See http://checkstyle.sf.net/config_misc.html -->
+		<module name="ArrayTypeStyle" />
+		<!-- <module name="FinalParameters"/>-->
+
+		<!--
+			<module name="GenericIllegalRegexp"> <property name="format"
+			value="\s+$"/> <property name="message" value="Line has trailing
+			spaces."/> </module>
+		-->
+
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="[^ ]\{$" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be ' {'." />
+		</module>
+
+
+		<!--
+			s'assure qu'aucun espace n'est présent après un { ou un { ou un
+			;final sur une ligne
+		-->
+		<module name="Regexp">
+			<property name="format" value="(\{|\}|;) +$" />
+			<property name="illegalPattern" value="true" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - spaces at the end of line" />
+		</module>
+
+
+		<!-- s'assure qu'il y a un espace après les instruction -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="\s(if|for|while|else)\(" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be 'instr ('." />
+		</module>
+
+		<!-- s'assure qu'il n'y a pas plus d'un espace après les instruction -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="\s(if|for|while|else)  +\(" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be 'instr ('." />
+		</module>
+
+		<!-- s'assure qu'il y a un espace après le try -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="\stry\{" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be 'try {'." />
+		</module>
+
+		<!-- s'assure qu'il y a un espace après le try -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="\stry  +\{" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be 'try {'." />
+		</module>
+
+
+		<!-- s'assure qu'il y a un espace avant le catch -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="\}catch" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be '} catch'." />
+		</module>
+
+		<!-- s'assure qu'il y a un espace avant le catch -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="\}  +\catch" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be '} catch'." />
+		</module>
+
+
+
+		<!-- s'assure qu'il y a un espace après le catch -->
+		<module name="GenericIllegalRegexp">
+			<property name="format" value="catch\(" />
+			<property name="severity" value="warning" />
+			<property name="message" value="Afnic - Shoul be 'catch ('." />
+		</module>
+
+		<!-- s'assure qu'il y a un espace après le catch -->
+		<module name="GenericIllegalRegexp">
+			<property name="severity" value="warning" />
+			<property name="format" value="catch  +\(" />
+			<property name="message" value="Afnic - Shoul be 'catch ('." />
+		</module>
+
+		<!-- s'assure qu'il y a un espace entre le } et le else -->
+		<module name="GenericIllegalRegexp">
+			<property name="severity" value="warning" />
+			<property name="format" value="}else" />
+			<property name="message" value="Afnic - Missing space between } and else." />
+		</module>
+
+		<!-- s'assure qu'il y a un espace entre ) et throws -->
+		<module name="GenericIllegalRegexp">
+			<property name="severity" value="warning" />
+			<property name="format" value="\)throws" />
+			<property name="message" value="Afnic - Missing space between ) and throws." />
+		</module>
+
+
+
+		<module name="TodoComment" />
+		<module name="UpperEll" />
+
+
+
+	</module>
+
+</module>

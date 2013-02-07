@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jdom/1.0/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/ant/ant.jar"/>
+	<classpathentry kind="lib" path="lib/guava/r07/guava-r07.jar"/>
+	<classpathentry kind="lib" path="lib/commons/lang/2.4/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/jooq/2.5.0/jooq-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/jooq/2.5.0/jooq-codegen-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/jooq/2.5.0/jooq-console-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/jooq/2.5.0/jooq-meta-2.5.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

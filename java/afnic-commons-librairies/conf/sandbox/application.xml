@@ -1,0 +1,34 @@
+<!-- Template pour créer des application.xml propre à chaque application -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+       
+             
+                  
+    <bean id="application" class="fr.afnic.commons.beans.application.Application" >
+          <constructor-arg value="app"/> <!--${APP_NAME}-->
+    </bean>
+                  
+                  
+                  
+    <bean id="version" class="fr.afnic.commons.beans.application.Version" > 
+         <constructor-arg index="0" value="1"/><!--${VERSION_MAJOR}-->
+         <constructor-arg index="1" value="2"/><!--${VERSION_MINOR}-->
+         <constructor-arg index="2" value="3"/><!--${VERSION_PATCH}-->
+         <constructor-arg index="3" value="4"/><!--${VERSION_SUBMIT_NUMBER}-->
+         <constructor-arg index="4" ref="application"/>
+         <constructor-arg index="5">
+            <util:constant static-field="fr.afnic.commons.beans.application.env.Environnement.Sandbox"/><!--${ENV}-->
+         </constructor-arg>
+         
+    </bean>
+                  
+                                     
+    <bean id="applicationService" class="fr.afnic.commons.services.ApplicationService">
+        <constructor-arg ref="version" />     
+    </bean>
+      
+</beans>
+

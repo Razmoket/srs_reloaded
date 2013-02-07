@@ -1,0 +1,133 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+   <bean id="docushareSessionFactory" class="fr.afnic.commons.services.docushare.converter.DocushareSessionFactory">
+    <property name="host"     value="docushare.nic.fr"/>
+    <property name="rmiPort"  value="1099"/>
+    <property name="userName" value="injector"/>
+    <property name="password" value="injector"/>
+    <property name="domain"   value="DocuShare"/>
+  </bean>
+  
+  
+    <bean id="operationFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-2203"/>
+    </bean>
+  
+    <bean id="reportingFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-2386"/>
+    </bean>
+    
+    <bean id="plaintFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-2385"/>
+    </bean>    
+    
+    <bean id="invalidPlaintFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-2555"/>
+    </bean>
+    
+    <bean id="requestFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-152"/>
+    </bean>
+    
+       <bean id="inboxFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-81"/>
+    </bean>
+    
+     <bean id="mainOperationFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-261"/>
+    </bean>
+    
+       <bean id="mainLegalFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-12"/>
+    </bean>
+  
+      <bean id="trashFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-105"/>
+    </bean>
+    
+    
+    <bean id="archiveFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-89"/>
+    </bean>
+    
+    
+     <bean id="runningFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-90"/>
+    </bean>
+    
+    <bean id="qualificationInboxFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-2501"/>
+    </bean>
+        
+     <bean id="unclassifiableFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-92"/>
+    </bean>
+    
+        <bean id="unknownFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-93"/>
+    </bean>
+    
+    <bean id="tradeWithoutTicketFolder" class="fr.afnic.commons.beans.documents.Folder" >
+         <constructor-arg  value="Collection-98"/>
+    </bean>
+
+       
+    
+  <bean id="tree" class="fr.afnic.commons.beans.documents.Tree">
+     <property name ="operation" ref="operationFolder"/>     
+     <property name ="reporting" ref="reportingFolder"/>
+     <property name ="plaint" ref="plaintFolder"/>
+     <property name ="invalidPlaint" ref="invalidPlaintFolder"/>
+     <property name ="request" ref="requestFolder"/>
+     <property name ="inbox" ref="inboxFolder"/>
+     <property name ="mainOperation" ref="mainOperationFolder"/>
+     <property name ="mainLegal" ref="mainLegalFolder"/>
+     <property name ="trash" ref="trashFolder"/>
+      <property name ="archive" ref="archiveFolder"/>
+      <property name ="running" ref="runningFolder"/>
+      <property name ="unclassifiable" ref="unclassifiableFolder"/>
+     <property name ="unknown" ref="unknownFolder"/>
+     <property name ="tradeWithoutTicket" ref="tradeWithoutTicketFolder"/>
+      <property name ="qualificationInbox" ref="qualificationInboxFolder"/>
+   </bean>
+
+                                     
+    <bean id="oldDocumentService" class="fr.afnic.commons.services.docushare.OldDocushareDocumentService">      
+        <constructor-arg>
+            <bean name="docushareSessionFactory" class="fr.afnic.commons.services.docushare.converter.DocushareSessionFactory" >
+                <property name="host"     value="docushare.nic.fr"/>
+                <property name="rmiPort"  value="1099"/>
+                <property name="userName" value="injector"/>
+                <property name="password" value="injector"/>
+                <property name="domain"   value="DocuShare"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg >
+            <bean name="folderManager" class="fr.afnic.commons.services.docushare.FolderManager">
+                <property name="runningFolderHandle" value="Collection-90"/>
+                <property name="rootFolderHandle" value="Collection-85"/>
+                <property name="archiveFolderHandle" value="Collection-89"/>
+                <property name="requestFolderHandle" value="Collection-152"/>
+                <property name="inboxFolderHandle" value="Collection-81"/>
+                <property name="delayedFolderHandle" value="Collection-91"/>
+                <property name="inclassableFolderHandle" value="Collection-92"/>
+                <property name="unknownFolderHandle" value="Collection-93"/>
+                <property name="tradeWithoutTicketFolderHandle" value="Collection-98"/>
+                <property name="operationFolderHandle" value="Collection-2203"/>
+             </bean>
+
+        </constructor-arg>
+    </bean>
+    
+    
+    <bean id="documentService" class="fr.afnic.commons.services.docushare.DocushareDocumentService">
+         <constructor-arg ref="docushareSessionFactory" />
+         <constructor-arg ref="tree" />
+    </bean>      
+      
+</beans>
+
+

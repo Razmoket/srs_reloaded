@@ -1,0 +1,51 @@
+<!-- On ne controle pas les classes générés -->
+<FindBugsFilter>
+
+     <!-- Packages générés ou non maintenues que l'on ne souhaite pas inspecter'-->
+    <Match> 
+      <Or>
+          <Package name="~fr\.afnic\.thrift.*" />
+          <Package name="~org\.apache\.thrift.*" /> 
+          <Package name="~fr\.afnic\.gateway\.stub.*" /> 
+          <Package name="~fr\.afnic\..*stub.*" /> 
+          <Package name="~fr\.afnic\.gateway\.thrift\.server\.database\.content\.model.*"  /> 
+          
+        
+      </Or>
+    </Match>
+    
+
+    <!-- Warning ignorés-->
+    <Match>
+        <Or>
+            <Bug code="SBSC,REC,RV, OBL" />
+            <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+            <Bug pattern="NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS" />
+            <Bug pattern="DLS_DEAD_LOCAL_STORE" /><!-- les variables créés à perte ce n'est pas dangereux -->
+            <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME" /><!-- Leve des erreur sur les déclaration de File avec parametre static -->
+         </Or>
+        
+        
+        
+                
+       
+       <!-- SBSC: SBSC_USE_STRINGBUFFER_CONCATENATION: lève un warning si l'on concatène des chaine via un '+' -->
+       <!-- REC: try/catch qui ne throw pas d'exception -->
+       <!-- RV: Retour de méthode ignoré => fréquent à cause des mkdir()-->
+       <!-- OBL_UNSATISFIED_OBLIGATION: pas de fermeture dans les finally => findbug ne detecte pas l'appel à Closer.close(...) -->
+        <!-- SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE: ne supporte pas qu'une chaine sql soit constuite meme partiellement -->
+    </Match>
+    
+
+    
+      <!-- Dans cette méthode non statique on s'autorise à modifier un parametre statique-->
+        <Match>
+           <Class name="fr.afnic.commons.services.facade.AppServiceFacade" />
+           <Method name="setProvider" />
+           <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+        </Match>
+
+    
+</FindBugsFilter>
+
+
